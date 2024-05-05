@@ -1,3 +1,4 @@
+import os
 import gi
 import json
 
@@ -5,9 +6,11 @@ gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 
-def load_kernel_versions(filepath="../kernels.json"):
+def load_kernel_versions():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    json_path = os.path.join(dir_path, "../kernels.json")
     try:
-        with open(filepath, "r") as file:
+        with open(json_path, "r") as file:
             data = json.load(file)
         return data["kernels"]
     except FileNotFoundError:
