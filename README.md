@@ -14,7 +14,7 @@
 Before installing `kernel-switcher`, ensure you have the following installed on your system:
 - Python 3.x
 - GTK3 and PyGObject
-  - For Debian/Ubuntu: `sudo apt-get install python3-gi python3-gi-cairo gir1.2-gtk-3.0`
+  - For Debian/Ubuntu: `sudo apt-get install python3-gi python3-gi-cairo libcairo2-dev gir1.2-gtk-3.0 pkg-config libgirepository1.0-dev`
   - For more detailed installation instructions, see [PyGObject Installation](https://pygobject.readthedocs.io/en/latest/getting_started.html)
 
 ### Setup
