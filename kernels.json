@@ -1,0 +1,13 @@
+{
+    "kernels": [
+      {
+        "version": "6.8.9",
+        "url": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.8.9.tar.xz"
+      },
+      {
+        "version": "6.8.8",
+        "url": "https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.8.8.tar.xz"
+      }
+    ]
+  }
+  
