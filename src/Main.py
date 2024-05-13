@@ -2,9 +2,8 @@ import os
 import gi
 import json
 
-gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
-
+gi.require_version("Gtk", "4.0")
+from gi.repository import Gtk, Adw
 
 def load_kernel_versions():
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -20,19 +19,20 @@ def load_kernel_versions():
         print("Error: There was an issue decoding the kernels.json file.")
         return []
 
-
-class KernelSelector(Gtk.Window):
-    def __init__(self):
-        super().__init__(title="Kernel Selector")
+class KernelSelector(Gtk.ApplicationWindow):
+    def __init__(self, app):
+        super().__init__(application=app)
+        self.set_title("Kernel Selector")
+        self.set_default_size(400, 100)
         self.set_border_width(10)
 
         self.combo = Gtk.ComboBoxText()
         self.combo.connect("changed", self.on_combo_changed)
         self.load_kernels_into_combo()
 
-        layout = Gtk.Box(spacing=6)
-        layout.pack_start(self.combo, True, True, 0)
-        self.add(layout)
+        layout = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+        layout.append(self.combo)
+        self.set_child(layout)
 
     def load_kernels_into_combo(self):
         kernels = load_kernel_versions()
@@ -44,9 +44,16 @@ class KernelSelector(Gtk.Window):
         if text is not None:
             print(f"Selected Kernel: {text}")
 
+class MyApp(Gtk.Application):
+    def __init__(self):
+        super().__init__()
 
-if __name__ == "__main__":
-    win = KernelSelector()
-    win.connect("destroy", Gtk.main_quit)
-    win.show_all()
-    Gtk.main()
+    def do_activate(self):
+        win = KernelSelector(self)
+        win.show()
+
+    def do_startup(self):
+        Gtk.Application.do_startup(self)
+
+app = MyApp()
+app.run()
